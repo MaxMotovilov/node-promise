@@ -12,6 +12,12 @@ for (var i in fs) {
   }
 }
 
-// convert the functions that don't have a declared callback
-exports.writeFile = convertNodeAsyncFunction(fs.writeFile, true);
-exports.readFile = convertNodeAsyncFunction(fs.readFile, true);
+// Convert the functions that don't have a declared callback. Note that
+// declared arity of writeFile and readFile has changed in node 8.x so
+// the override is no longer required.
+
+if( fs.writeFile.length == 2 )
+	exports.writeFile = convertNodeAsyncFunction(fs.writeFile, true);
+
+if( fs.readFile.length == 2 )
+	exports.readFile = convertNodeAsyncFunction(fs.readFile, true);
