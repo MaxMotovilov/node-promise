@@ -7,7 +7,7 @@ var fs = require("fs"),
 
 // convert all the non-sync functions
 for (var i in fs) {
-  if (!(i.match(/Sync$/))) {
+  if (!(i.match(/Sync$/)) && fs[i]) {
     exports[i] = convertNodeAsyncFunction(fs[i]);
   }
 }
